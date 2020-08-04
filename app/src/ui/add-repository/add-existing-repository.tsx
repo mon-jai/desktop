@@ -15,6 +15,7 @@ import untildify from 'untildify'
 import { showOpenDialog } from '../main-process-proxy'
 import { Ref } from '../lib/ref'
 import { InputError } from '../lib/input-description/input-error'
+import { isGitRepository } from './create-repository'
 
 interface IAddExistingRepositoryProps {
   readonly dispatcher: Dispatcher
@@ -261,9 +262,9 @@ export class AddExistingRepository extends React.Component<
   }
 
   private onPathChanged = async (path: string) => {
-    if (this.state.path !== path) {
-      this.updatePath(path)
-    }
+    const isRepository = await isGitRepository(this.resolvedPath(path))
+
+    this.setState({ path, isRepository })
   }
 
   private showFilePicker = async () => {
