@@ -95,6 +95,7 @@ export enum PopupType {
   PullRequestComment = 'PullRequestComment',
   UnknownAuthors = 'UnknownAuthors',
   ConfirmRepoRulesBypass = 'ConfirmRepoRulesBypass',
+  ConfirmRestart = 'ConfirmRestart',
 }
 
 interface IBasePopup {
@@ -422,5 +423,6 @@ export type PopupDetail =
       branch: string
       onConfirm: () => void
     }
+  | { type: PopupType.ConfirmRestart }
 
 export type Popup = IBasePopup & PopupDetail
