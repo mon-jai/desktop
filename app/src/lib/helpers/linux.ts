@@ -15,7 +15,6 @@ export function isFlatpakBuild() {
  * Convert an executable path to be relative to the flatpak host
  *
  * @param path a path to an executable relative to the root of the filesystem
- *
  */
 export function convertToFlatpakPath(path: string) {
   if (!__LINUX__) {

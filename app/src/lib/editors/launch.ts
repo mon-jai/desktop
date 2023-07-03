@@ -10,7 +10,6 @@ import { ExternalEditorError, FoundEditor } from './shared'
  * @param path the location of some program on disk
  *
  * @returns `true` if the path exists on disk, or `false` otherwise
- *
  */
 function pathExists(path: string) {
   if (__LINUX__) {
