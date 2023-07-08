@@ -157,6 +157,7 @@
     "@types/webpack-merge": "^5.0.0",
     "@types/xml2js": "^0.4.11",
     "electron": "24.4.0",
+    "electron-builder": "^24.4.0",
     "electron-packager": "^17.1.1",
     "eslint-plugin-github": "^4.3.7",
     "jest-esm-transformer": "^1.0.0",
