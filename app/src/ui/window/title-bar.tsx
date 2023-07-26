@@ -83,8 +83,11 @@ export class TitleBar extends React.Component<ITitleBarProps> {
     const inFullScreen = this.props.windowState === 'full-screen'
     const isMaximized = this.props.windowState === 'maximized'
 
+    const appMenuPlatform = __WIN32__ || __LINUX__
+
     // No Windows controls when we're in full-screen mode.
-    const winControls = __WIN32__ && !inFullScreen ? <WindowControls /> : null
+    const winControls =
+      appMenuPlatform && !inFullScreen ? <WindowControls /> : null
 
     // On Windows it's not possible to resize a frameless window if the
     // element that sits flush along the window edge has -webkit-app-region: drag.
@@ -93,11 +96,11 @@ export class TitleBar extends React.Component<ITitleBarProps> {
     // disables drag while still letting users drag the app by the titlebar below
     // those 3px.
     const topResizeHandle =
-      __WIN32__ && !isMaximized ? <div className="resize-handle top" /> : null
+      appMenuPlatform && !isMaximized ? <div className="resize-handle top" /> : null
 
     // And a 3px wide element on the left hand side.
     const leftResizeHandle =
-      __WIN32__ && !isMaximized ? <div className="resize-handle left" /> : null
+      appMenuPlatform && !isMaximized ? <div className="resize-handle left" /> : null
 
     const titleBarClass =
       this.props.titleBarStyle === 'light' ? 'light-title-bar' : ''
