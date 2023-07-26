@@ -112,8 +112,8 @@ export class WindowControls extends React.Component<{}, IWindowControlState> {
   }
 
   public render() {
-    // We only know how to render fake Windows-y controls
-    if (!__WIN32__) {
+    // render the faux window controls for Windows and Linux builds
+    if (!__DARWIN__) {
       return <span />
     }
 
