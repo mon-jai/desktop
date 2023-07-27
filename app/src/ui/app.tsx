@@ -172,6 +172,7 @@ import { UnknownAuthors } from './unknown-authors/unknown-authors-dialog'
 import { UnsupportedOSBannerDismissedAtKey } from './banners/windows-version-no-longer-supported-banner'
 import { offsetFromNow } from '../lib/offset-from'
 import { getNumber } from '../lib/local-storage'
+import { ConfirmRestart } from './preferences/confirm-restart'
 
 const MinuteInMilliseconds = 1000 * 60
 const HourInMilliseconds = MinuteInMilliseconds * 60
@@ -2504,6 +2505,9 @@ export class App extends React.Component<IAppProps, IAppState> {
             onDismissed={onPopupDismissedFn}
           />
         )
+      }
+      case PopupType.ConfirmRestart: {
+        return <ConfirmRestart />
       }
       default:
         return assertNever(popup, `Unknown popup type: ${popup}`)

@@ -136,15 +136,14 @@ export class Appearance extends React.Component<
           renderRadioButtonLabelContents={this.renderThemeSwatch}
         />
 
-        <h2>Title bar style</h2>
-
         <Row>
           <Select
+            label={'Title bar style'}
             value={this.state.titleBarStyle}
             onChange={(event: React.FormEvent<HTMLSelectElement>) => {
-              this.props.onTitleBarStyleChanged(
-                event.currentTarget.value as TitleBarStyle
-              )
+              const titleBarStyle = event.currentTarget.value as TitleBarStyle
+              this.setState({ titleBarStyle })
+              this.props.onTitleBarStyleChanged(titleBarStyle)
             }}
           >
             <option value="native">Native</option>

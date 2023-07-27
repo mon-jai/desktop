@@ -66,6 +66,7 @@ export type RequestChannels = {
   blur: () => void
   'update-accounts': (accounts: ReadonlyArray<EndpointToken>) => void
   'quit-and-install-updates': () => void
+  'relaunch-app': () => void
   'quit-app': () => void
   'minimize-window': () => void
   'maximize-window': () => void

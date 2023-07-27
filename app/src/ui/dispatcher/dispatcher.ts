@@ -2465,8 +2465,9 @@ export class Dispatcher {
   /**
    * Set the application-wide theme
    */
-  public setTitleBarStyle(titleBarStyle: TitleBarStyle) {
-    return this.appStore._setTitleBarStyle(titleBarStyle)
+  public async setTitleBarStyle(titleBarStyle: TitleBarStyle) {
+    await this.appStore._setTitleBarStyle(titleBarStyle)
+    this.showPopup({ type: PopupType.ConfirmRestart })
   }
 
   /**

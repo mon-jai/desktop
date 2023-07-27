@@ -509,6 +509,8 @@ app.on('ready', () => {
     mainWindow?.quitAndInstallUpdate()
   )
 
+  ipcMain.on('relaunch-app', () => app.relaunch())
+
   ipcMain.on('quit-app', () => app.quit())
 
   ipcMain.on('minimize-window', () => mainWindow?.minimizeWindow())

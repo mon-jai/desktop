@@ -94,6 +94,7 @@ export enum PopupType {
   TestNotifications = 'TestNotifications',
   PullRequestComment = 'PullRequestComment',
   UnknownAuthors = 'UnknownAuthors',
+  ConfirmRestart = 'ConfirmRestart',
 }
 
 interface IBasePopup {
@@ -415,5 +416,6 @@ export type PopupDetail =
       authors: ReadonlyArray<UnknownAuthor>
       onCommit: () => void
     }
+  | { type: PopupType.ConfirmRestart }
 
 export type Popup = IBasePopup & PopupDetail

@@ -164,6 +164,9 @@ export const checkForUpdates = invokeProxy('check-for-updates', 1)
 /** Tell the main process to quit the app and install updates */
 export const quitAndInstallUpdate = sendProxy('quit-and-install-updates', 0)
 
+/** Tell the main process to relaunch the app */
+export const relaunchApp = sendProxy('relaunch-app', 0)
+
 /** Tell the main process to quit the app */
 export const quitApp = sendProxy('quit-app', 0)
 
