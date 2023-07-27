@@ -92,6 +92,7 @@ interface IPreferencesState {
   readonly selectedExternalEditor: string | null
   readonly availableShells: ReadonlyArray<Shell>
   readonly selectedShell: Shell
+  readonly titleBarStyle: TitleBarStyle
   /**
    * If unable to save Git configuration values (name, email)
    * due to an existing configuration lock file this property
@@ -139,6 +140,7 @@ export class Preferences extends React.Component<
       selectedExternalEditor: this.props.selectedExternalEditor,
       availableShells: [],
       selectedShell: this.props.selectedShell,
+      titleBarStyle: this.props.titleBarStyle,
       repositoryIndicatorsEnabled: this.props.repositoryIndicatorsEnabled,
       initiallySelectedTheme: this.props.selectedTheme,
       isLoadingGitConfig: true,
@@ -506,7 +508,7 @@ export class Preferences extends React.Component<
   }
 
   private onTitleBarStyleChanged = (titleBarStyle: TitleBarStyle) => {
-    this.props.dispatcher.setTitleBarStyle(titleBarStyle)
+    this.setState({ titleBarStyle })
   }
 
   private renderFooter() {
@@ -615,6 +617,7 @@ export class Preferences extends React.Component<
       )
     }
     await this.props.dispatcher.setShell(this.state.selectedShell)
+    await this.props.dispatcher.setTitleBarStyle(this.state.titleBarStyle)
     await this.props.dispatcher.setConfirmDiscardChangesSetting(
       this.state.confirmDiscardChanges
     )

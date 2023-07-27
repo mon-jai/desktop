@@ -15,18 +15,17 @@ function readTitleBarConfigFile(): TitleBarConfig {
   let titleBarConfig: TitleBarConfig
 
   try {
-    const titleBarConfig = JSON.parse(
-      readFileSync(getTitleBarConfigPath(), 'utf8')
-    )
+    titleBarConfig = JSON.parse(readFileSync(getTitleBarConfigPath(), 'utf8'))
 
     if (['native', 'custom'].includes(titleBarConfig.titleBarStyle)) {
       return titleBarConfig
     }
-  } finally {
-    titleBarConfig = { titleBarStyle: 'native' }
-    saveTitleBarConfigFile(titleBarConfig)
-    return titleBarConfig
-  }
+  } catch (error) {}
+
+  titleBarConfig = { titleBarStyle: 'native' }
+  saveTitleBarConfigFile(titleBarConfig)
+
+  return titleBarConfig
 }
 
 export async function saveTitleBarConfigFile(config: TitleBarConfig) {

@@ -688,9 +688,9 @@ app.on('ready', () => {
     nativeTheme.themeSource = themeName
   })
 
-  ipcMain.on('set-title-bar-style', (_, titleBarStyle) => {
+  ipcMain.on('set-title-bar-style', (_, titleBarStyle) =>
     saveTitleBarConfigFile({ titleBarStyle })
-  })
+  )
 
   ipcMain.handle(
     'should-use-dark-colors',
