@@ -27,6 +27,7 @@ import {
 } from './notifications'
 import { addTrustedIPCSender } from './trusted-ipc-sender'
 
+import { TITLE_BAR_CONFIG } from '../lib/title-bar-config'
 export class AppWindow {
   private window: Electron.BrowserWindow
   private emitter = new Emitter()
@@ -75,7 +76,9 @@ export class AppWindow {
     } else if (__WIN32__) {
       windowOptions.frame = false
     } else if (__LINUX__) {
-      windowOptions.frame = false
+      if (TITLE_BAR_CONFIG.titleBarStyle == 'custom') {
+        windowOptions.frame = false
+      }
       windowOptions.icon = join(__dirname, 'static', 'logos', '512x512.png')
 
       // relax restriction here for users trying to run app at a small
@@ -356,7 +359,7 @@ export class AppWindow {
     d.showCertificateTrustDialog(
       this.window,
       { certificate, message },
-      () => { }
+      () => {}
     )
   }
 

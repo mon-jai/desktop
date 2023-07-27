@@ -1364,7 +1364,10 @@ export class App extends React.Component<IAppProps, IAppState> {
    */
   private renderAppMenuBar() {
     // We render the app menu bar on Windows and Linux
-    if (__DARWIN__) {
+    if (
+      __DARWIN__ ||
+      (__LINUX__ && this.props.appStore.getState().titleBarStyle == 'native')
+    ) {
       return null
     }
 
@@ -1415,19 +1418,21 @@ export class App extends React.Component<IAppProps, IAppState> {
       this.state.currentFoldout &&
       this.state.currentFoldout.type === FoldoutType.AppMenu
 
+    if (__LINUX__ && this.props.appStore.getState().titleBarStyle == 'native') {
+      return null
+    }
+
     // When we're in full-screen mode on Windows we only need to render
     // the title bar when the menu bar is active. On other platforms we
     // never render the title bar while in full-screen mode.
 
-    const appMenuPlatform = __WIN32__ || __LINUX__
-
     if (inFullScreen) {
-      if (!appMenuPlatform || !menuBarActive) {
+      if (!menuBarActive) {
         return null
       }
     }
 
-    const showAppIcon = appMenuPlatform && !this.state.showWelcomeFlow
+    const showAppIcon = !this.state.showWelcomeFlow
     const inWelcomeFlow = this.state.showWelcomeFlow
     const inNoRepositoriesView = this.inNoRepositoriesViewState()
 
@@ -1508,7 +1513,7 @@ export class App extends React.Component<IAppProps, IAppState> {
       case PopupType.RenameBranch:
         const stash =
           this.state.selectedState !== null &&
-            this.state.selectedState.type === SelectionType.Repository
+          this.state.selectedState.type === SelectionType.Repository
             ? this.state.selectedState.state.changesState.stashEntry
             : null
         return (
@@ -1619,6 +1624,7 @@ export class App extends React.Component<IAppProps, IAppState> {
             onDismissed={onPopupDismissedFn}
             selectedShell={this.state.selectedShell}
             selectedTheme={this.state.selectedTheme}
+            titleBarStyle={this.state.titleBarStyle}
             repositoryIndicatorsEnabled={this.state.repositoryIndicatorsEnabled}
           />
         )
@@ -2088,7 +2094,7 @@ export class App extends React.Component<IAppProps, IAppState> {
 
         const existingStash =
           selectedState !== null &&
-            selectedState.type === SelectionType.Repository
+          selectedState.type === SelectionType.Repository
             ? selectedState.state.changesState.stashEntry
             : null
 

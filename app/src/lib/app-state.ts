@@ -46,6 +46,7 @@ import {
 } from '../models/multi-commit-operation'
 import { IChangesetData } from './git'
 import { Popup } from '../models/popup'
+import { TitleBarStyle } from '../ui/lib/title-bar-style'
 
 export enum SelectionType {
   Repository,
@@ -269,6 +270,9 @@ export interface IAppState {
 
   /** The selected appearance (aka theme) preference */
   readonly selectedTheme: ApplicationTheme
+
+  /** The selected appearance (aka theme) preference */
+  readonly titleBarStyle: TitleBarStyle
 
   /** The currently applied appearance (aka theme) */
   readonly currentTheme: ApplicableTheme

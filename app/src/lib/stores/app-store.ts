@@ -91,6 +91,8 @@ import {
   sendWillQuitEvenIfUpdatingSync,
   quitApp,
   sendCancelQuittingSync,
+  getTitleBarStyle,
+  setTitleBarStyle,
 } from '../../ui/main-process-proxy'
 import {
   API,
@@ -324,6 +326,7 @@ import { determineMergeability } from '../git/merge-tree'
 import { PopupManager } from '../popup-manager'
 import { resizableComponentClass } from '../../ui/resizable'
 import { compare } from '../compare'
+import { TitleBarStyle } from '../../ui/lib/title-bar-style'
 
 const LastSelectedRepositoryIDKey = 'last-selected-repository-id'
 
@@ -507,6 +510,7 @@ export class AppStore extends TypedBaseStore<IAppState> {
 
   private selectedBranchesTab = BranchesTab.Branches
   private selectedTheme = ApplicationTheme.System
+  private titleBarStyle: TitleBarStyle = 'native'
   private currentTheme: ApplicableTheme = ApplicationTheme.Light
 
   private useWindowsOpenSSH: boolean = false
@@ -986,6 +990,7 @@ export class AppStore extends TypedBaseStore<IAppState> {
       selectedCloneRepositoryTab: this.selectedCloneRepositoryTab,
       selectedBranchesTab: this.selectedBranchesTab,
       selectedTheme: this.selectedTheme,
+      titleBarStyle: this.titleBarStyle,
       currentTheme: this.currentTheme,
       apiRepositories: this.apiRepositoriesStore.getState(),
       useWindowsOpenSSH: this.useWindowsOpenSSH,
@@ -2106,6 +2111,8 @@ export class AppStore extends TypedBaseStore<IAppState> {
     this.selectedTheme = getPersistedThemeName()
     // Make sure the persisted theme is applied
     setPersistedTheme(this.selectedTheme)
+
+    this.titleBarStyle = await getTitleBarStyle()
 
     this.currentTheme = await getCurrentlyAppliedTheme()
 
@@ -6401,6 +6408,16 @@ export class AppStore extends TypedBaseStore<IAppState> {
     setPersistedTheme(theme)
     this.selectedTheme = theme
     this.emitUpdate()
+
+    return Promise.resolve()
+  }
+
+  /**
+   * Set the application-wide theme
+   */
+  public _setTitleBarStyle(titleBarStyle: TitleBarStyle) {
+    this.titleBarStyle = titleBarStyle
+    setTitleBarStyle(titleBarStyle)
 
     return Promise.resolve()
   }

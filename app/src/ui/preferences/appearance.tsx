@@ -4,18 +4,23 @@ import {
   supportsSystemThemeChanges,
   getCurrentlyAppliedTheme,
 } from '../lib/application-theme'
+import { TitleBarStyle } from '../lib/title-bar-style'
 import { Row } from '../lib/row'
 import { DialogContent } from '../dialog'
 import { RadioGroup } from '../lib/radio-group'
 import { encodePathAsUrl } from '../../lib/path'
+import { Select } from '../lib/select'
 
 interface IAppearanceProps {
   readonly selectedTheme: ApplicationTheme
   readonly onSelectedThemeChanged: (theme: ApplicationTheme) => void
+  readonly titleBarStyle: TitleBarStyle
+  readonly onTitleBarStyleChanged: (titleBarStyle: TitleBarStyle) => void
 }
 
 interface IAppearanceState {
   readonly selectedTheme: ApplicationTheme | null
+  readonly titleBarStyle: TitleBarStyle
 }
 
 export class Appearance extends React.Component<
@@ -29,7 +34,10 @@ export class Appearance extends React.Component<
       props.selectedTheme !== ApplicationTheme.System ||
       supportsSystemThemeChanges()
 
-    this.state = { selectedTheme: usePropTheme ? props.selectedTheme : null }
+    this.state = {
+      selectedTheme: usePropTheme ? props.selectedTheme : null,
+      titleBarStyle: props.titleBarStyle,
+    }
 
     if (!usePropTheme) {
       this.initializeSelectedTheme()
@@ -127,6 +135,21 @@ export class Appearance extends React.Component<
           onSelectionChanged={this.onSelectedThemeChanged}
           renderRadioButtonLabelContents={this.renderThemeSwatch}
         />
+
+        <Row>
+          <Select
+            label="Title bar style"
+            value={this.state.titleBarStyle}
+            onChange={(event: React.FormEvent<HTMLSelectElement>) => {
+              this.setState({
+                titleBarStyle: event.currentTarget.value as TitleBarStyle,
+              })
+            }}
+          >
+            <option value="native">Native</option>
+            <option value="custom">Custom</option>
+          </Select>
+        </Row>
       </DialogContent>
     )
   }

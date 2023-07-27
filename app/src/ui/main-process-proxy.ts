@@ -212,6 +212,12 @@ export function onShowInstallingUpdate(eventHandler: () => void) {
 /** Tell the main process to set the native theme source */
 export const setNativeThemeSource = sendProxy('set-native-theme-source', 1)
 
+/** Tell the main process to obtain the current window state */
+export const getTitleBarStyle = invokeProxy('get-title-bar-style', 0)
+
+/** Tell the main process to set the native theme source */
+export const setTitleBarStyle = sendProxy('set-title-bar-style', 1)
+
 /** Tell the main process to obtain wether the native theme uses dark colors */
 export const shouldUseDarkColors = invokeProxy('should-use-dark-colors', 0)
 

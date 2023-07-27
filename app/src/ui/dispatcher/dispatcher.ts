@@ -122,6 +122,7 @@ import { getMultiCommitOperationChooseBranchStep } from '../../lib/multi-commit-
 import { ICombinedRefCheck, IRefCheck } from '../../lib/ci-checks/ci-checks'
 import { ValidNotificationPullRequestReviewState } from '../../lib/valid-notification-pull-request-review'
 import { UnreachableCommitsTab } from '../history/unreachable-commits-dialog'
+import { TitleBarStyle } from '../lib/title-bar-style'
 
 /**
  * An error handler function.
@@ -2459,6 +2460,13 @@ export class Dispatcher {
    */
   public setSelectedTheme(theme: ApplicationTheme) {
     return this.appStore._setSelectedTheme(theme)
+  }
+
+  /**
+   * Set the application-wide theme
+   */
+  public setTitleBarStyle(titleBarStyle: TitleBarStyle) {
+    return this.appStore._setTitleBarStyle(titleBarStyle)
   }
 
   /**

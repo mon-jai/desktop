@@ -21,6 +21,7 @@ import {
 } from '../lib/identifier-rules'
 import { Appearance } from './appearance'
 import { ApplicationTheme } from '../lib/application-theme'
+import { TitleBarStyle } from '../lib/title-bar-style'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { Integrations } from './integrations'
 import {
@@ -63,6 +64,7 @@ interface IPreferencesProps {
   readonly selectedExternalEditor: string | null
   readonly selectedShell: Shell
   readonly selectedTheme: ApplicationTheme
+  readonly titleBarStyle: TitleBarStyle
   readonly repositoryIndicatorsEnabled: boolean
 }
 
@@ -348,6 +350,8 @@ export class Preferences extends React.Component<
           <Appearance
             selectedTheme={this.props.selectedTheme}
             onSelectedThemeChanged={this.onSelectedThemeChanged}
+            titleBarStyle={this.props.titleBarStyle}
+            onTitleBarStyleChanged={this.onTitleBarStyleChanged}
           />
         )
         break
@@ -499,6 +503,10 @@ export class Preferences extends React.Component<
 
   private onSelectedThemeChanged = (theme: ApplicationTheme) => {
     this.props.dispatcher.setSelectedTheme(theme)
+  }
+
+  private onTitleBarStyleChanged = (titleBarStyle: TitleBarStyle) => {
+    this.props.dispatcher.setTitleBarStyle(titleBarStyle)
   }
 
   private renderFooter() {

@@ -46,6 +46,10 @@ import {
   showNotification,
 } from 'desktop-notifications'
 import { initializeDesktopNotifications } from './notifications'
+import {
+  TITLE_BAR_CONFIG,
+  saveTitleBarConfigFile,
+} from '../lib/title-bar-config'
 
 app.setAppLogsPath()
 enableSourceMaps()
@@ -580,6 +584,14 @@ app.on('ready', () => {
   /**
    * An event sent by the renderer asking for the app's architecture
    */
+  ipcMain.handle(
+    'get-title-bar-style',
+    async () => TITLE_BAR_CONFIG.titleBarStyle
+  )
+
+  /**
+   * An event sent by the renderer asking for the app's architecture
+   */
   ipcMain.handle('get-path', async (_, path) => app.getPath(path))
 
   /**
@@ -674,6 +686,10 @@ app.on('ready', () => {
 
   ipcMain.on('set-native-theme-source', (_, themeName) => {
     nativeTheme.themeSource = themeName
+  })
+
+  ipcMain.on('set-title-bar-style', (_, titleBarStyle) => {
+    saveTitleBarConfigFile({ titleBarStyle })
   })
 
   ipcMain.handle(

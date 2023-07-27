@@ -13,6 +13,7 @@ import { Architecture } from './get-architecture'
 import { EndpointToken } from './endpoint-token'
 import { PathType } from '../ui/lib/app-proxy'
 import { ThemeSource } from '../ui/lib/theme-source'
+import { TitleBarStyle } from '../ui/lib/title-bar-style'
 import { DesktopNotificationPermission } from 'desktop-notifications/dist/notification-permission'
 import { NotificationCallback } from 'desktop-notifications/dist/notification-callback'
 import { DesktopAliveEvent } from './stores/alive-store'
@@ -77,6 +78,7 @@ export type RequestChannels = {
   'auto-updater-update-downloaded': () => void
   'native-theme-updated': () => void
   'set-native-theme-source': (themeName: ThemeSource) => void
+  'set-title-bar-style': (titleBarStyle: TitleBarStyle) => void
   'focus-window': () => void
   'notification-event': NotificationCallback<DesktopAliveEvent>
   'set-window-zoom-factor': (zoomFactor: number) => void
@@ -92,6 +94,7 @@ export type RequestChannels = {
  * Return signatures must be promises
  */
 export type RequestResponseChannels = {
+  'get-title-bar-style': () => Promise<TitleBarStyle>
   'get-path': (path: PathType) => Promise<string>
   'get-app-architecture': () => Promise<Architecture>
   'get-app-path': () => Promise<string>
